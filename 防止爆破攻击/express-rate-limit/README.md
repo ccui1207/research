@@ -2,7 +2,7 @@
 ````md
 # Express `express-rate-limit` 本地改装版 Demo（Linux 虚拟机）
 
-本项目用于验证本地改装后的 `express-rate-limit` 是否仍可正常工作，并测试以下三种场景：
+本项目用于验证 `express-rate-limit` ，并测试以下三种场景：
 
 1. 同一 IP，同一用户  
 2. 不同 IP，同一用户  
@@ -43,7 +43,7 @@ npm -v
 
 ---
 
-## 3. 本地改装版 `express-rate-limit` 仓库说明
+## 3.  `express-rate-limit` 仓库说明
 
 当前保留的核心文件包括：
 
