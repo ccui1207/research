@@ -17,7 +17,7 @@
 当前有两个目录：
 
 -  `Aegis_tool1` 仓库：  
-  `/home/cc/research/防止爆破攻击/Aegis_tool1`
+  `/home/cc/research/防暴力破解能力工具/Aegis_tool1`
 
 - 用于测试的 Express demo：  
   `/home/cc/test/Aegis_tool1-demo`
@@ -78,7 +78,7 @@ npm -v
 进入本地改装后的仓库目录：
 
 ```bash
-cd /home/cc/research/防止爆破攻击/Aegis_tool1
+cd /home/cc/research/防暴力破解能力工具/Aegis_tool1
 ```
 
 ### 4.1 安装依赖（跳过 Puppeteer 下载）
@@ -145,7 +145,7 @@ npm install express
 
 ```js
 import express from 'express'
-import { rateLimit } from '/home/cc/research/防止爆破攻击/Aegis_tool1/dist/index.mjs'
+import { rateLimit } from '/home/cc/research/防暴力破解能力工具/Aegis_tool1/dist/index.mjs'
 
 const app = express()
 app.use(express.json())
@@ -317,7 +317,7 @@ for i in $(seq 1 8); do
     -H "X-Forwarded-For: 10.0.0.$i" \
     -H 'Content-Type: application/json' \
     -X POST http://127.0.0.1:3000/login \
-    -d "{\"username\":\"alice\",\"password\":\"wrong$i\"}"
+    -d "{\"username\":\"bob\",\"password\":\"wrong$i\"}"
 done
 ```
 
@@ -333,11 +333,6 @@ done
 
 ## 9.3 不同 IP，不同用户
 
-同样建议先等待 65 秒：
-
-```bash
-sleep 65
-```
 
 然后执行：
 
