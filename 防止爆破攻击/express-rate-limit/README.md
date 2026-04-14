@@ -1,8 +1,8 @@
 
 ````md
-# Express `express-rate-limit` 本地改装版 Demo（Linux 虚拟机）
+# Express `Aegis_tool1 Linux 虚拟机）
 
-本项目用于验证 `express-rate-limit` ，并测试以下三种场景：
+本项目用于验证 `Aegis_tool1` ，并测试以下三种场景：
 
 1. 同一 IP，同一用户  
 2. 不同 IP，同一用户  
@@ -16,11 +16,11 @@
 
 当前有两个目录：
 
--  `express-rate-limit` 仓库：  
-  `/home/cc/research/防止爆破攻击/express-rate-limit`
+-  `Aegis_tool1` 仓库：  
+  `/home/cc/research/防止爆破攻击/Aegis_tool1`
 
 - 用于测试的 Express demo：  
-  `/home/cc/test/express-rate-limit-demo`
+  `/home/cc/test/Aegis_tool1-demo`
 
 如果你的实际路径不同，请自行替换。
 
@@ -43,9 +43,9 @@ npm -v
 
 ---
 
-## 3.  `express-rate-limit` 仓库说明
+## 3.  `Aegis_tool1t` 仓库说明
 
-当前保留的核心文件包括：
+当前核心文件包括：
 
 ### 根目录
 
@@ -71,8 +71,6 @@ npm -v
 * `types.ts`
 * `validations.ts`
 
-说明：核心运行逻辑源码仍在。
-
 ---
 
 ## 4. 安装依赖并编译本地仓库
@@ -80,7 +78,7 @@ npm -v
 进入本地改装后的仓库目录：
 
 ```bash
-cd /home/cc/research/防止爆破攻击/express-rate-limit
+cd /home/cc/research/防止爆破攻击/Aegis_tool1
 ```
 
 ### 4.1 安装依赖（跳过 Puppeteer 下载）
@@ -128,8 +126,8 @@ index.mjs
 进入测试目录：
 
 ```bash
-mkdir -p /home/cc/test/express-rate-limit-demo
-cd /home/cc/test/express-rate-limit-demo
+mkdir -p /home/cc/test/Aegis_tool1-demo
+cd /home/cc/test/Aegis_tool1-demo
 ```
 
 初始化项目并安装 Express：
@@ -147,7 +145,7 @@ npm install express
 
 ```js
 import express from 'express'
-import { rateLimit } from '/home/cc/research/防止爆破攻击/express-rate-limit/dist/index.mjs'
+import { rateLimit } from '/home/cc/research/防止爆破攻击/Aegis_tool1/dist/index.mjs'
 
 const app = express()
 app.use(express.json())
@@ -234,7 +232,7 @@ app.listen(3000, () => {
 ## 7. 启动测试服务
 
 ```bash
-cd /home/cc/test/express-rate-limit-demo
+cd /home/cc/test/Aegis_tool1-demo
 node server.mjs
 ```
 
