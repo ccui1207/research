@@ -73,8 +73,8 @@ Running on http://127.0.0.1:8080
 因此，建议通过 `/etc/nginx/conf.d/` 引入：
 ```bash
 cat <<'EOF' | sudo tee /etc/nginx/conf.d/naxsi-main.conf
-include /home/cc/research/防止模糊攻击/Fuzzing_Attack2/naxsi_rules/naxsi_core.rules;
-include /home/cc/research/防止模糊攻击/Fuzzing_Attack2/naxsi_rules/blocking/*.rules;
+include /home/cc/research/防模糊攻击能力工具/Fuzzing_Attack2/naxsi_rules/naxsi_core.rules;
+include /home/cc/research/防模糊攻击能力工具/Fuzzing_Attack2/naxsi_rules/blocking/*.rules;
 EOF
 ```
 3.2 创建本地测试站点
