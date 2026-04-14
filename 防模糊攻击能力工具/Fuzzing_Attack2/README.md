@@ -310,48 +310,6 @@ grep '"var_name":"fuzz"' /var/log/nginx/naxsi-error.log | grep -o '"id":[0-9]*' 
 ```
 说明：
 50 条随机 fuzz 请求
-全部被 Naxsi 拦截
+全部被 Fuzzing_Attack2 拦截
 这就可以说明：
-Naxsi 具备对随机异常参数的识别与拦截能力，即具备一定的防模糊攻击能力。
----
-11. 一次性执行顺序（推荐）
-终端 1：运行 Flask 后端
-```bash
-cd ~/research/防模糊攻击能力工具/test-backend
-source venv/bin/activate
-python3 app.py
-```
-终端 2：检查并运行 Nginx / Naxsi
-```bash
-sudo nginx -t
-sudo systemctl reload nginx
-sudo ss -ltnp | grep 8081
-```
-终端 3：看 Naxsi 命中日志
-```bash
-sudo tail -f /var/log/nginx/naxsi-error.log | grep -E 'NAXSI_FMT|NAXSI_EXLOG|"id"'
-```
-终端 4：做单条验证与 fuzz 测试
-```bash
-curl -i "http://127.0.0.1:8081/?q=hello"
-curl -i "http://127.0.0.1:8081/?a=<>"
-python3 ~/research/防止模糊攻击/naxsi/fuzz_simple.py
-```
-测试后统计
-```bash
-grep '"GET /?fuzz=' /var/log/nginx/naxsi-access.log | awk '{print $9}' | sort | uniq -c
-grep '"var_name":"fuzz"' /var/log/nginx/naxsi-error.log | grep -o '"id":[0-9]*' | sort | uniq -c
-```
----
-12. 可直接写进实验报告的结论
-```text
-在本地环境下，利用 Nginx 加载 Naxsi 模块，并通过 Flask 构建测试后端。实验中，正常请求可被正常代理转发；异常参数 a=<> 在 LearningMode 开启时能够触发 Naxsi 规则命中并记录日志，在关闭 LearningMode 后返回 403 Forbidden。进一步通过 Python 脚本生成 50 组随机特殊字符参数进行 fuzz 测试，可观察到大量 403 响应，同时 error log 中记录了 ARGS 区域的规则命中信息，说明 Naxsi 具备对随机异常输入的识别与拦截能力，具有一定的防模糊攻击效果。
-```
----
-13. 注意事项
-`naxsi_core.rules` 必须放在 http 级别 加载，不能直接放进 `location {}`。
-如果 `a=<>` 返回 200，但日志里已经看到规则命中，通常说明还开着 `LearningMode`。
-如果 8081 上存在多个测试站点，可能会出现命中错误 server 的情况，应保证测试站点唯一。
-建议将 Naxsi 专用日志拆分为单独文件，例如：
-`/var/log/nginx/naxsi-access.log`
-`/var/log/nginx/naxsi-error.log`
+Fuzzing_Attack2 具备对随机异常参数的识别与拦截能力，即具备一定的防模糊攻击能力。
