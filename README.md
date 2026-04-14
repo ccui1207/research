@@ -21,15 +21,15 @@ research/
 
 | 工具 | 技术栈 | 功能描述 |
 |------|--------|----------|
-| Aegis_tool1 | Node.js/Express | 自研的请求频率限制中间件，基于IP实现限速控制，支持滑动窗口算法 |
-| Aegis_tool2 | Python/Django | 自研的Django限速模块，基于装饰器模式实现，支持IP和用户双维度限速 |
+| Aegis_tool1 | Node.js/Express | 请求频率限制中间件，基于IP实现限速控制，支持滑动窗口算法 |
+| Aegis_tool2 | Python/Django | Django限速模块，基于装饰器模式实现，支持IP和用户双维度限速 |
 
 ### 防模糊攻击能力工具
 
 | 工具 | 技术栈 | 功能描述 |
 |------|--------|----------|
-| Fuzzing_Attack1 | Go/Caddy | 自研的Web应用防火墙模块，集成规则引擎实现请求检测与拦截 |
-| Fuzzing_Attack2 | C/Nginx | 自研的Nginx安全防护模块，基于特征库识别SQL注入、XSS等攻击 |
+| Fuzzing_Attack1 | Go/Caddy | Web应用防火墙模块，集成规则引擎实现请求检测与拦截 |
+| Fuzzing_Attack2 | C/Nginx | Nginx安全防护模块，基于特征库识别SQL注入、XSS等攻击 |
 
 ## 快速开始
 
@@ -106,9 +106,3 @@ cd 防模糊攻击能力工具/Fuzzing_Attack2
 - Python 3.11+ / Django 4.x (Aegis_tool2)
 - Go 1.20+ (Fuzzing_Attack1)
 - Nginx + Naxsi 模块 (Fuzzing_Attack2)
-
-## 注意事项
-
-- 各子项目内有独立的README文档，包含详细的使用说明
-- 部分工具需要额外的系统依赖（如Redis、Nginx编译等）
-- 测试时请遵守法律法规，仅在授权环境下进行安全研究
