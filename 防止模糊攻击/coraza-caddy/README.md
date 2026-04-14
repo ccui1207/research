@@ -11,13 +11,13 @@ Fuzzing_Attack1 本地运行与防模糊攻击测试 README
 不包含安装过程。默认你已经具备以下条件：
 `go` 已可用，且为较新版本
 `xcaddy` 已可用
-`coraza-caddy` 源码已在本地
+`Fuzzing_Attack1` 源码已在本地
 Python3 可用
 ---
 2. 本次测试目录约定
 Coraza 源码目录
 ```bash
-~/research/防止模糊攻击/coraza-caddy
+~/research/防止模糊攻击/Fuzzing_Attack1
 ```
 测试后端目录
 ```bash
