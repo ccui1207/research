@@ -1,6 +1,6 @@
-Coraza-Caddy 本地运行与防模糊攻击测试 README
+Fuzzing_Attack1 本地运行与防模糊攻击测试 README
 1. 说明
-本文档记录 在本地源码目录中重新生成 `build/caddy`，并完成 Coraza-Caddy 防模糊攻击能力测试 的完整过程。
+本文档记录 在本地源码目录中重新生成 `build/caddy`，并完成 Fuzzing_Attack1 防模糊攻击能力测试 的完整过程。
 本文档只包含：
 运行流程
 配置文件准备
@@ -32,7 +32,7 @@ Coraza-Caddy：`127.0.0.1:8082`
 3. 生成新的 Caddy 可执行文件
 进入源码目录：
 ```bash
-cd ~/research/防止模糊攻击/coraza-caddy
+cd ~/research/防止模糊攻击/Fuzzing_Attack1
 ```
 确保当前终端使用的是正确的 Go 与 xcaddy：
 ```bash
