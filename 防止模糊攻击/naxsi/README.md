@@ -1,4 +1,4 @@
-Naxsi 本地运行与防模糊攻击测试 README
+Fuzzing_Attack2 本地运行与防模糊攻击测试 README
 
 > 说明：
 > - 本文档 **不包含安装过程**。
@@ -8,7 +8,7 @@ Naxsi 本地运行与防模糊攻击测试 README
 1. 本地环境约定
 1.1 Naxsi 源码目录
 ```bash
-~/research/防止模糊攻击/naxsi
+~/research/防止模糊攻击/Fuzzing_Attack2
 ```
 目录中关键部分：
 `naxsi_rules/`：规则文件目录
@@ -67,14 +67,14 @@ Running on http://127.0.0.1:8080
 ```
 这个终端不要关闭。
 ---
-3. 配置 Naxsi 本地测试站点
+3. 配置 Fuzzing_Attack2 本地测试站点
 3.1 全局加载核心规则
 `naxsi_core.rules` 中包含大量 `MainRule`，它们 不能放在 `server {}` 或 `location {}` 中，而应该放在 `http {}` 级别。
 因此，建议通过 `/etc/nginx/conf.d/` 引入：
 ```bash
 cat <<'EOF' | sudo tee /etc/nginx/conf.d/naxsi-main.conf
-include /home/cc/research/防止模糊攻击/naxsi/naxsi_rules/naxsi_core.rules;
-include /home/cc/research/防止模糊攻击/naxsi/naxsi_rules/blocking/*.rules;
+include /home/cc/research/防止模糊攻击/Fuzzing_Attack2/naxsi_rules/naxsi_core.rules;
+include /home/cc/research/防止模糊攻击/Fuzzing_Attack2/naxsi_rules/blocking/*.rules;
 EOF
 ```
 3.2 创建本地测试站点
