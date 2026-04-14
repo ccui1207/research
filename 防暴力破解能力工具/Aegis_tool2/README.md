@@ -243,7 +243,7 @@ Starting development server at http://0.0.0.0:8000/
 测试时建议新开一个终端：
 
 ```bash
-cd /Aegis_tool2-demo
+cd Aegis_tool2-demo
 source .venv/bin/activate
 ```
 
