@@ -55,7 +55,7 @@ python manage.py startapp authdemo
 
 ---
 
-## 3. 配置 `demo/settings.py`
+## 3. 配置 `Aegis_tool2-demo/demo/settings.py`
 
 将 `demo/settings.py` 修改为以下关键内容。
 
