@@ -7,12 +7,12 @@
 ```
 research/
 ├── 防暴力破解能力工具/          # 防止暴力破解攻击的工具
-│   ├── Aegis_tool1/            # Express.js Rate Limit - Node.js Express限速中间件
-│   └── Aegis_tool2/            # Django Ratelimit - Django框架限速库
+│   ├── Aegis_tool1/            # Node.js 限速中间件
+│   └── Aegis_tool2/            # Django 限速模块
 │
 └── 防模糊攻击能力工具/          # 防止模糊测试/Fuzzing攻击的工具
-    ├── Fuzzing_Attack1/         # Coraza Caddy - Go语言WAF的Caddy服务器集成
-    └── Fuzzing_Attack2/         # Naxsi - Nginx WAF模块 (基于libinjection)
+    ├── Fuzzing_Attack1/        # Go WAF 模块 (Caddy集成)
+    └── Fuzzing_Attack2/        # Nginx WAF 模块
 ```
 
 ## 工具说明
@@ -35,7 +35,7 @@ research/
 
 ### 防暴力破解
 
-**Aegis_tool1 (Express.js)**
+**Aegis_tool1**
 
 ```bash
 cd 防暴力破解能力工具/Aegis_tool1
@@ -43,7 +43,7 @@ npm install
 # 参考source目录下的示例进行集成
 ```
 
-**Aegis_tool2 (Django)**
+**Aegis_tool2**
 
 ```bash
 cd 防暴力破解能力工具/Aegis_tool2
@@ -52,7 +52,7 @@ cd 防暴力破解能力工具/Aegis_tool2
 
 ### 防模糊攻击
 
-**Fuzzing_Attack1 (Coraza)**
+**Fuzzing_Attack1**
 
 ```bash
 cd 防模糊攻击能力工具/Fuzzing_Attack1
@@ -60,7 +60,7 @@ go mod download
 # 参考example目录下的使用示例
 ```
 
-**Fuzzing_Attack2 (Naxsi)**
+**Fuzzing_Attack2**
 
 ```bash
 cd 防模糊攻击能力工具/Fuzzing_Attack2
