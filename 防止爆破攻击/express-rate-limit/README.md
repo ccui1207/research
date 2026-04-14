@@ -14,9 +14,9 @@
 
 ## 1. 目录说明
 
-假设当前有两个目录：
+当前有两个目录：
 
-- 本地改装后的 `express-rate-limit` 仓库：  
+-  `express-rate-limit` 仓库：  
   `/home/cc/research/防止爆破攻击/express-rate-limit`
 
 - 用于测试的 Express demo：  
