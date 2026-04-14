@@ -21,15 +21,15 @@ research/
 
 | 工具 | 技术栈 | 功能描述 |
 |------|--------|----------|
-| Aegis_tool1 | Node.js/Express | 基于IP的请求限速中间件，支持自定义限速规则和窗口期配置 |
-| Aegis_tool2 | Python/Django | Django框架的限速装饰器，支持IP和用户维度限速，可对接Redis存储 |
+| Aegis_tool1 | Node.js/Express | 自研的请求频率限制中间件，基于IP实现限速控制，支持滑动窗口算法 |
+| Aegis_tool2 | Python/Django | 自研的Django限速模块，基于装饰器模式实现，支持IP和用户双维度限速 |
 
 ### 防模糊攻击能力工具
 
 | 工具 | 技术栈 | 功能描述 |
 |------|--------|----------|
-| Fuzzing_Attack1 | Go/Caddy | Coraza WAF的Caddy模块，支持规则引擎和请求拦截 |
-| Fuzzing_Attack2 | C/Nginx | Naxsi是Nginx的Web应用防火墙模块，基于签名库检测恶意请求 |
+| Fuzzing_Attack1 | Go/Caddy | 自研的Web应用防火墙模块，集成规则引擎实现请求检测与拦截 |
+| Fuzzing_Attack2 | C/Nginx | 自研的Nginx安全防护模块，基于特征库识别SQL注入、XSS等攻击 |
 
 ## 快速开始
 
