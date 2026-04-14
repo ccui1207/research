@@ -1,8 +1,8 @@
 
 ````md
-# Django `django-ratelimit` Demo（Linux 虚拟机）
+# Django `Aegis_tool2` Demo（Linux 虚拟机）
 
-本项目用于演示 `django-ratelimit` 的基础限速能力，并测试以下三种场景：
+本项目用于演示 `Aegis_tool2` 的基础限速能力，并测试以下三种场景：
 
 1. 同一 IP，同一用户  
 2. 不同 IP，同一用户  
@@ -40,8 +40,8 @@ PONG
 ## 2. 创建项目
 
 ```bash
-mkdir django-ratelimit-demo
-cd django-ratelimit-demo
+mkdir Aegis_tool2-demo
+cd Aegis_tool2-demo
 
 python3.11 -m venv .venv
 source .venv/bin/activate
@@ -243,7 +243,7 @@ Starting development server at http://0.0.0.0:8000/
 测试时建议新开一个终端：
 
 ```bash
-cd /django-ratelimit-demo
+cd /Aegis_tool2-demo
 source .venv/bin/activate
 ```
 
