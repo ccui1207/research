@@ -153,12 +153,12 @@ Running on http://127.0.0.1:8080
 ```
 这个终端保持开启。
 ---
-7. 运行 Coraza-Caddy
+7. 运行Fuzzing_Attack1
 另开一个终端，进入源码目录：
 ```bash
-cd ~/research/防模糊攻击能力工具/coraza-caddy
+cd ~/research/防模糊攻击能力工具/Fuzzing_Attack1
 ```
-启动 Coraza-Caddy：
+启动Fuzzing_Attack1：
 ```bash
 ./build/caddy run --config ./Caddyfile.test --adapter caddyfile
 ```
@@ -167,7 +167,7 @@ cd ~/research/防模糊攻击能力工具/coraza-caddy
 ```bash
 sudo ss -ltnp | grep 8082
 ```
-如果看到 `8082` 被 Caddy 监听，说明 Coraza 已开始运行。
+如果看到 `8082` 被Fuzzing_Attack1监听，说明 Coraza 已开始运行。
 ---
 8. 基础联通测试
 另开一个终端执行：
@@ -186,7 +186,7 @@ Content-Type: application/json
 {"args":{"q":["hello"]},"form":{},"json":null,"method":"GET","path":"/"}
 ```
 这说明：
-Coraza + Caddy -> Flask 链路已经打通。
+Fuzzing_Attack1 + Caddy -> Flask 链路已经打通。
 ---
 9. 单条异常参数测试
 测试 1：参数 `a=<>`
@@ -199,7 +199,7 @@ HTTP/1.1 403 Forbidden
 ```
 这说明：
 `SecRule ARGS:a` 规则命中
-Coraza 可以对简单异常输入进行检测并拦截
+Fuzzing_Attack1 可以对简单异常输入进行检测并拦截
 ---
 测试 2：特殊字符 fuzz 参数
 ```bash
@@ -211,9 +211,9 @@ HTTP/1.1 403 Forbidden
 ```
 这说明：
 `SecRule ARGS:fuzz` 规则命中
-Coraza 能够对高符号密度、非预期字符组合进行识别与拦截
+Fuzzing_Attack1 能够对高符号密度、非预期字符组合进行识别与拦截
 ---
-10. 查看 Coraza 审计日志
+10. 查看Fuzzing_Attack1审计日志
 另开一个终端：
 ```bash
 tail -f /tmp/coraza_audit.log
@@ -235,7 +235,7 @@ Coraza: Access denied (phase 2)
 可以准确定位到命中的规则与触发内容
 ---
 11. 批量模糊攻击测试（fuzz）
-在 Coraza 源码目录中创建 `fuzz_simple.py`：
+在Fuzzing_Attack1源码目录中创建 `fuzz_simple.py`：
 ```bash
 cat > ./fuzz_simple.py <<'EOF'
 import random
@@ -294,50 +294,5 @@ grep 'suspicious fuzz characters in parameter fuzz' /tmp/coraza_audit.log | tail
 ```
 结果解释
 命中次数越多，说明 fuzz 请求越多触发了规则
-如果大量 fuzz 请求返回 `403`，并且日志中有对应规则命中，说明 Coraza 具备较强的防模糊攻击能力
+如果大量 fuzz 请求返回 `403`，并且日志中有对应规则命中，说明Fuzzing_Attack1具备较强的防模糊攻击能力
 ---
-13. 推荐的完整执行顺序
-终端 1：运行后端
-```bash
-cd ~/research/防止模糊攻击/test-backend
-source venv/bin/activate
-python3 app.py
-```
-终端 2：运行 Coraza
-```bash
-cd ~/research/防止模糊攻击/coraza-caddy
-./build/caddy adapt --config ./Caddyfile.test --adapter caddyfile
-./build/caddy run --config ./Caddyfile.test --adapter caddyfile
-```
-终端 3：看日志
-```bash
-tail -f /tmp/coraza_audit.log
-```
-终端 4：执行测试
-```bash
-curl -i "http://127.0.0.1:8082/?q=hello"
-curl -i "http://127.0.0.1:8082/?a=<>"
-curl -i "http://127.0.0.1:8082/?fuzz=%3C%3E%7C%27%22%28%29%5B%5D%3B%2C"
-python3 ~/research/防止模糊攻击/coraza-caddy/fuzz_simple.py
-```
-终端 5：统计结果
-```bash
-grep 'id "1102"' /tmp/coraza_audit.log | wc -l
-grep 'suspicious fuzz characters in parameter fuzz' /tmp/coraza_audit.log | tail -n 20
-```
----
-14. 测试结论模板
-可以将本次测试总结为：
-```text
-在本地源码目录中重新生成带 Coraza 插件的 Caddy 二进制后，基于自定义规则完成了 Coraza-Caddy 的运行与防模糊攻击测试。测试结果表明，正常请求能够被正确反向代理至 Flask 后端，而异常参数 a=<> 与含大量特殊字符的 fuzz 参数均返回 403 Forbidden。审计日志 /tmp/coraza_audit.log 中记录了规则 ID 1101、1102 对应的拦截信息，说明该方案能够识别并拦截随机异常输入，具备一定的防模糊攻击能力。
-```
----
-15. 注意事项
-`./build/caddy` 是本地重新生成后的运行文件，不是系统默认 Caddy。
-`Caddyfile.test` 必须放在当前源码目录中，且测试命令中的路径要一致。
-`8082` 端口仅用于 Coraza 测试，避免与其他本地服务冲突。
-`/tmp/coraza_audit.log` 如果历史内容过多，可先清空后再测试：
-```bash
-> /tmp/coraza_audit.log
-```
-如果需要重复测试，建议先确认 Flask 与 Caddy 两个终端都在正常运行。
