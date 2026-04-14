@@ -17,11 +17,11 @@ Python3 可用
 2. 本次测试目录约定
 Coraza 源码目录
 ```bash
-~/research/防止模糊攻击/Fuzzing_Attack1
+~/research/防模糊攻击能力工具/Fuzzing_Attack1
 ```
 测试后端目录
 ```bash
-~/research/防止模糊攻击/test-backend
+~/research/防模糊攻击能力工具/test-backend
 ```
 端口约定
 Flask 后端：`127.0.0.1:8080`
@@ -32,7 +32,7 @@ Coraza-Caddy：`127.0.0.1:8082`
 3. 生成新的 Caddy 可执行文件
 进入源码目录：
 ```bash
-cd ~/research/防止模糊攻击/Fuzzing_Attack1
+cd ~/research/防模糊攻击能力工具/Fuzzing_Attack1
 ```
 确保当前终端使用的是正确的 Go 与 xcaddy：
 ```bash
@@ -116,8 +116,8 @@ cat ./Caddyfile.test
 6. 准备并运行测试后端（Flask）
 进入测试后端目录：
 ```bash
-mkdir -p ~/research/防止模糊攻击/test-backend
-cd ~/research/防止模糊攻击/test-backend
+mkdir -p ~/research/防模糊攻击能力工具/test-backend
+cd ~/research/防模糊攻击能力工具/test-backend
 ```
 创建 `app.py`：
 ```bash
@@ -156,7 +156,7 @@ Running on http://127.0.0.1:8080
 7. 运行 Coraza-Caddy
 另开一个终端，进入源码目录：
 ```bash
-cd ~/research/防止模糊攻击/coraza-caddy
+cd ~/research/防模糊攻击能力工具/coraza-caddy
 ```
 启动 Coraza-Caddy：
 ```bash
