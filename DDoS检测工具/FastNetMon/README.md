@@ -140,3 +140,107 @@ FastNetMon 调用脚本时会传参（典型含义）：
 ## 8. 脱敏要求
 
 不提交明文密码、token、密钥；日志与配置片段请脱敏后再提交。
+
+## 9. 靶场复现（可选）：network namespace + veth + iperf3
+
+这一节对应“在隔离环境里模拟体量型攻击特征”，用来在日志里形成更完整的证据链（例如 `detected attack`、`incoming attack`、`Call script for ban client` 等）。**不要在真实公网/他人网络上做压测**。
+
+### 9.1 你会得到什么拓扑（概念）
+
+- 两个 network namespace：`ns1`、`ns2`
+- 一对 `veth`：`veth0` ↔ `veth1`（一端放进 `ns1`，另一端放进 `ns2`）
+- 在 `ns1/ns2` 内配置 `10.10.10.0/24` 这类地址
+- 用 `iperf3` 在 `ns2 → ns1` 打 UDP 流量，让 pps/Mbps 上升
+- FastNetMon 监听 `veth0`（在 host 侧或指定命名空间里，取决于你怎么挂接口），并配合阈值触发告警
+
+> 说明：不同课堂/实验脚本对 namespace 命名、接口落在哪个 namespace、以及 FastNetMon 进程所在 network namespace 可能不同。下面给的是“最常见可复用骨架”。如果你发现 `veth0` 在 `ip -br a` 里不可见，优先以你实验脚本为准。
+
+### 9.2 前置条件
+
+```bash
+sudo apt-get update
+sudo apt-get install -y iperf3 iproute2
+```
+
+### 9.3 创建 netns + veth，并配置地址（示例）
+
+```bash
+sudo ip netns add ns1
+sudo ip netns add ns2
+
+sudo ip link add veth0 type veth peer name veth1
+sudo ip link set veth0 netns ns1
+sudo ip link set veth1 netns ns2
+
+sudo ip netns exec ns1 ip addr add 10.10.10.1/24 dev veth0
+sudo ip netns exec ns2 ip addr add 10.10.10.2/24 dev veth1
+
+sudo ip netns exec ns1 ip link set veth0 up
+sudo ip netns exec ns2 ip link set veth1 up
+```
+
+确认接口存在：
+
+```bash
+sudo ip netns exec ns1 ip -br a
+sudo ip netns exec ns2 ip -br a
+```
+
+### 9.4 启动 iperf3 服务端（ns1）与客户端压测（ns2）
+
+```bash
+sudo ip netns exec ns1 iperf3 -s -D
+sudo ip netns exec ns2 iperf3 -c 10.10.10.1 -u -b 200M -l 1200 -t 30
+```
+
+### 9.5 让 FastNetMon 针对靶场网段与接口工作（要点）
+
+靶场验证时，通常需要把监控网段切到靶场地址，并把 AF_PACKET 监听接口切到 `veth0`（以你当时实验为准）：
+
+```bash
+echo '10.10.10.0/24' | sudo tee /etc/networks_list
+grep -nE '^(mirror_afpacket|interfaces)\b' /etc/fastnetmon.conf
+```
+
+然后编辑 `/etc/fastnetmon.conf`（例如 `sudo nano /etc/fastnetmon.conf`），确保最终生效的配置语义满足：
+
+- `mirror_afpacket = on`
+- `interfaces = veth0`
+
+重启服务：
+
+```bash
+sudo service fastnetmon restart
+sudo service fastnetmon status
+```
+
+确认监听接口与日志：
+
+```bash
+sudo tail -n 200 /var/log/fastnetmon.log | grep -aEi 'AF_PACKET will listen on|detected attack|Call script'
+```
+
+### 9.6 阈值与触发（概念）
+
+告警是否触发取决于你在 `/etc/fastnetmon.conf` 里配置的阈值（例如 pps/Mbps）。靶场里常用做法是：**临时把阈值调低到演示水平**，再用 `iperf3` 打 UDP，让日志出现明确事件行。
+
+### 9.7 实验结束后的恢复（强烈建议写进你的实验记录）
+
+把环境切回 WSL 日常网络时，一般需要恢复：
+
+```bash
+echo '172.22.192.0/20' | sudo tee /etc/networks_list
+```
+
+并把 `/etc/fastnetmon.conf` 的 `interfaces` 恢复为 `eth0`（或你实际外网接口名），然后：
+
+```bash
+sudo service fastnetmon restart
+```
+
+清理 netns（按你实际创建的名为准）：
+
+```bash
+sudo ip netns del ns1
+sudo ip netns del ns2
+```
