@@ -1,1 +1,0 @@
-find ../fdroid/repo/ -name '*.apk' -type f | shuf -n 500| while read; do ln -s $REPLY; done
