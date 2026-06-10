@@ -78,7 +78,7 @@ research/
 | 工具 | 技术栈 | 功能描述 |
 |------|--------|----------|
 | pport_scan_tool1 | Bash / Python / iptables / ipset | 通过开放端口与受保护端口对照，验证基于源 IP 白名单、访问控制和可选端口扫描防护策略的效果 |
-| pport_scan_tool2 | Bash / Python / iptables / ipset | 通过开放端口与受保护端口对照，验证基于源 IP 白名单、访问控制和可选端口扫描防护策略的效果 |
+| pport_scan_tool2 | Bash / Python / iptables / ipset | 基于机器学习检测引擎，在 HTTP 请求入口处对访问流量进行实时分析
 ## 快速开始
 
 各子工具目录均包含独立 `README.md`，建议进入对应目录查看完整部署、配置和验证步骤。
